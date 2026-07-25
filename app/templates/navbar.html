@@ -9,7 +9,9 @@
         <a class="topbar-link {{ 'is-active' if endpoint.startswith('employee.') else '' }}" href="{{ url_for('employee.employee_list') }}"><i class="bi bi-people"></i><span>Employees</span></a>
         <a class="topbar-link {{ 'is-active' if endpoint == 'department.departmentHome' else '' }}" href="{{ url_for('department.departmentHome') }}"><i class="bi bi-diagram-3"></i><span>Departments</span></a>
       </div>
-      <div class="topbar-user"><span class="avatar-placeholder" aria-hidden="true">AD</span><span class="user-copy"><strong>Admin</strong><small>Workspace owner</small></span><i class="bi bi-chevron-down user-chevron" aria-hidden="true"></i></div>
+      <div class="topbar-user"><button type="button" id="theme-toggle" class="icon-button" aria-label="Toggle dark mode" title="Toggle dark mode"><i class="bi bi-moon-stars"></i></button><span class="avatar-placeholder" aria-hidden="true">AD</span><span class="user-copy"><strong>Admin</strong><small>Workspace owner</small></span><form method="POST" action="{{ url_for('auth.logout') }}" class="d-inline"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><button class="icon-button" type="submit" aria-label="Sign out" title="Sign out"><i class="bi bi-box-arrow-right"></i></button></form></div>
     </div>
   </div>
 </nav>
+
+

@@ -6,13 +6,13 @@
   <meta name="theme-color" content="#5b5ce2">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-  <title>Employee Management System</title>
+  <title>OrbitHR — People, with context</title>
 </head>
-<body>
+<body data-theme="{{ request.cookies.get('orbithr_theme', 'light') }}">
   <div class="app-shell">
     {% include "navbar.html" %}
     <main class="app-main">{% block content %}{% endblock %}</main>
@@ -21,6 +21,13 @@
     <footer class="app-footer"><span>Employee Management System</span><span class="footer-dot">•</span><span>Built for better teams</span></footer>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  {% block scripts %}{% endblock %}
   <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
+
+
+
+
+
+

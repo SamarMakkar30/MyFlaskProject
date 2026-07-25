@@ -5,13 +5,13 @@ OrbitHR is a clean, responsive employee directory built with Flask and MySQL. It
 ## Highlights
 
 - Live dashboard with employee count, department count, average salary, and highest-average-salary department.
-- Complete employee CRUD workflow: create, view, update, and delete profiles.
+- Complete employee CRUD workflow with authenticated access, modal add/edit, offcanvas details, popover deletion, and bulk actions.
 - Directory search across names, email addresses, and departments.
 - Department and salary-range filters that can be combined with search.
 - Sortable name, email, department, and salary columns.
 - Server-side pagination with 5- or 10-row page sizes.
 - Persistent query parameters while navigating pages and changing sort order.
-- Responsive interface built with Bootstrap 5, Bootstrap Icons, and custom CSS.
+- Responsive interface built with Bootstrap 5, Bootstrap Icons, Chart.js, and custom CSS.
 - Idempotent demo-data seeding for quick local setup.
 - Friendly database-unavailable screen when MySQL cannot be reached.
 - Versioned database schema managed through Flask-Migrate and Alembic.
@@ -133,8 +133,9 @@ Open [http://127.0.0.1:5000/home](http://127.0.0.1:5000/home) in your browser.
 | Create employee | GET, POST | `/employee/add` |
 | Employee profile | GET | `/employee/employeeDetail/<id>` |
 | Update employee | GET, POST | `/employee/employeeUpdate/<id>` |
-| Delete employee | GET | `/employee/employeeDelete/<id>` |
-| Department overview | GET | `/department` |
+| Delete employee | POST | `/employee/employeeDelete/<id>` |
+| Department overview | GET | /department |
+| Login / logout | GET/POST | /login, /logout |
 
 The employee directory accepts these query parameters:
 
@@ -173,16 +174,16 @@ Example:
 
 ## Database and migrations
 
-The application uses an `employees` table with the following fields:
+The application uses `employees` and `departments` tables with the following fields:
 
 | Column | Type | Notes |
 | --- | --- | --- |
 | `id` | Integer | Primary key |
 | `name` | String | Required, up to 100 characters |
 | `email` | String | Required and unique |
-| `password` | String | Required legacy profile field |
+| `password` | String(255) | Required, securely hashed credential |
 | `salary` | Float | Required |
-| `department` | String | Required, up to 100 characters |
+| `department_id` | Integer | Required foreign key to `departments` |
 
 Create a new migration after changing models:
 
@@ -201,12 +202,11 @@ If MySQL is stopped or the credentials are invalid, database-backed pages return
 
 ## Security considerations
 
-This repository is a learning/demo application and is not production-ready authentication software. In particular:
-
-- The current navigation displays a static Admin workspace label; no login or authorization flow is implemented.
-- Employee passwords are stored as a model field and are displayed by the edit form. Do not use real passwords with this project.
-- Delete is currently exposed as a GET route and protected only by a browser confirmation dialog.
-- Before production use, add authentication, authorization, password hashing, CSRF protection, server-side validation, secure session configuration, and a POST-only delete action.
+- Passwords are hashed with Werkzeug and never rendered into forms or pages.
+- All state-changing requests use POST and require a session CSRF token.
+- Server-side validation rejects malformed email addresses, missing fields, non-positive salaries, and duplicate email addresses.
+- Database failures return a friendly 503 page rather than a traceback.
+- Set FLASK_DEBUG=false outside local development and use a strong SECRET_KEY.
 
 ## Development notes
 
@@ -219,3 +219,7 @@ This repository is a learning/demo application and is not production-ready authe
 ## License
 
 No license has been specified yet. Add a `LICENSE` file before distributing this project publicly.
+
+
+
+

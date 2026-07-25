@@ -7,6 +7,7 @@ Run after `flask --app app.py db upgrade`:
 from app import create_app
 from app.models import db
 from app.models.employee import Employee
+from app.models.department import Department
 
 
 EMPLOYEES = [
@@ -51,14 +52,16 @@ def seed_database():
             Employee(
                 name=name,
                 email=email,
-                password="demo-password",
+                password="",
                 salary=salary,
-                department=department,
+                department=Department.query.filter_by(name=department).first() or Department(name=department),
             )
             for name, email, salary, department in EMPLOYEES
             if email not in existing_emails
         ]
 
+        for employee in new_employees:
+            employee.set_password("demo-password")
         if not new_employees:
             print("Seed data already exists; no employees added.")
             return
@@ -70,3 +73,4 @@ def seed_database():
 
 if __name__ == "__main__":
     seed_database()
+
