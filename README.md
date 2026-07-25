@@ -94,7 +94,7 @@ DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_NAME=employee_db
 SECRET_KEY=replace-with-a-long-random-secret
-FLASK_DEBUG=true
+FLASK_DEBUG=false
 ```
 
 `.env` is ignored by Git. Never commit real passwords, secret keys, or other credentials.
@@ -114,6 +114,18 @@ python seed.py
 ```
 
 The seed script adds 30 sample employees across Engineering, People Operations, Sales, Marketing, and Finance. It is safe to run repeatedly because existing email addresses are skipped.
+The seed script also upgrades the legacy demo credentials to secure password hashes when an older local database is detected.
+
+### Demo login
+
+After running `python seed.py`, use any seeded employee account:
+
+```text
+Email: aarav.mehta@example.com
+Password: demo-password
+```
+
+This is demo-only data for local evaluation. Do not use this password for a real deployment.
 
 ### 8. Run the application
 
@@ -219,6 +231,7 @@ If MySQL is stopped or the credentials are invalid, database-backed pages return
 ## License
 
 No license has been specified yet. Add a `LICENSE` file before distributing this project publicly.
+
 
 
 
