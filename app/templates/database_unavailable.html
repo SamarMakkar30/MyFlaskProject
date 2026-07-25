@@ -1,0 +1,4 @@
+﻿{% extends "base.html" %}
+{% block content %}
+<div class="container app-container page-section unavailable-page"><section class="unavailable-card"><span class="empty-icon danger-icon"><i class="bi bi-database-exclamation"></i></span><p class="eyebrow">Temporary service issue</p><h1>Database unavailable</h1><p>We cannot reach the employee database right now. Check that MySQL is running and that the settings in your local <code>.env</code> file are correct, then try again.</p><div><a class="btn btn-primary" href="{{ request.path }}">Try again</a><a class="btn btn-ghost" href="{{ url_for('home.home') }}">Return home</a></div></section></div>
+{% endblock %}

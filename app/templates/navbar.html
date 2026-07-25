@@ -1,0 +1,15 @@
+﻿<nav class="topbar navbar navbar-expand-lg" aria-label="Primary navigation">
+  <div class="container app-container">
+    <a class="brand" href="{{ url_for('home.home') }}" aria-label="Employee Management System home"><span class="brand-mark"><i class="bi bi-people-fill"></i></span><span>Orbit<span class="brand-accent">HR</span></span></a>
+    <button class="navbar-toggler topbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#primaryNav" aria-controls="primaryNav" aria-expanded="false" aria-label="Toggle navigation"><i class="bi bi-list"></i></button>
+    {% set endpoint = request.endpoint or '' %}
+    <div class="collapse navbar-collapse" id="primaryNav">
+      <div class="navbar-nav topbar-nav mx-lg-auto">
+        <a class="topbar-link {{ 'is-active' if endpoint == 'home.home' else '' }}" href="{{ url_for('home.home') }}"><i class="bi bi-grid-1x2"></i><span>Overview</span></a>
+        <a class="topbar-link {{ 'is-active' if endpoint.startswith('employee.') else '' }}" href="{{ url_for('employee.employee_list') }}"><i class="bi bi-people"></i><span>Employees</span></a>
+        <a class="topbar-link {{ 'is-active' if endpoint == 'department.departmentHome' else '' }}" href="{{ url_for('department.departmentHome') }}"><i class="bi bi-diagram-3"></i><span>Departments</span></a>
+      </div>
+      <div class="topbar-user"><span class="avatar-placeholder" aria-hidden="true">AD</span><span class="user-copy"><strong>Admin</strong><small>Workspace owner</small></span><i class="bi bi-chevron-down user-chevron" aria-hidden="true"></i></div>
+    </div>
+  </div>
+</nav>

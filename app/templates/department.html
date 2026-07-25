@@ -1,0 +1,7 @@
+﻿{% extends "base.html" %}
+{% block content %}
+<div class="container app-container page-section department-page">
+  <section class="page-hero"><div><p class="eyebrow"><i class="bi bi-diagram-3"></i> Organization</p><h1>Departments</h1><p>Use the employee directory to explore every team and its people.</p></div><a href="{{ url_for('employee.employee_list') }}" class="btn btn-primary btn-with-icon"><i class="bi bi-people"></i> View employees</a></section>
+  <section class="department-info-card"><span class="callout-orb"><i class="bi bi-compass"></i></span><div><h2>Find your team faster</h2><p>Filter the directory by department, compare salary bands, and open individual employee profiles from one streamlined workspace.</p></div><a href="{{ url_for('employee.employee_list') }}" class="text-link">Open directory <i class="bi bi-arrow-right"></i></a></section>
+</div>
+{% endblock %}
